@@ -23,4 +23,12 @@ public class CommandTest {
 
         assertThat(actionName).isEqualTo("목록");
     }
+
+    @Test
+    @DisplayName("action name 얻어오기 - 입력값 삭제, ?가 없으면 잘 나오나 확인")
+    void t3() {
+        Command cmd = new Command("삭제");
+        String actionName = cmd.getActionName();
+        assertThat(actionName).isEqualTo("삭제");
+    }
 }
