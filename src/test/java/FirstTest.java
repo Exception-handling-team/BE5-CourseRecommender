@@ -238,7 +238,7 @@ public class FirstTest {
                 """);
 
         assertThat(out)
-                .contains("1번 명언은 존재하지 않습니다.");
+                .contains("1번 과목은 존재하지 않습니다.");
     }
 
 

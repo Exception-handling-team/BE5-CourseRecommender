@@ -64,7 +64,7 @@ public class CourseRecommenderController {
         boolean result = courseRecommenderService.delete(id);
 
         if (!result) {
-            wrongCmd();
+            System.out.println("%d번 과목은 존재하지 않습니다.".formatted(id));
         }
     }
 
