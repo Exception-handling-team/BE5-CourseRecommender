@@ -214,6 +214,33 @@ public class FirstTest {
                 .doesNotContain("1 / 객체지향프로그래밍 / T043585 / 3 / 2 / 없음 / 수 1 2 금 3");
     }
 
+    @Test
+    @DisplayName("삭제 예외 처리 - 없는 id로 삭제를 시도하면 예외처리 메세지 출력")
+    void t11() {
+        String out = TestBot.run("""
+                등록
+                객체지향프로그래밍
+                T043585
+                3
+                2
+                없음
+                수 1 2 금 3
+                등록
+                선형대수
+                T031086
+                3
+                1
+                없음
+                화 5 6 목 7
+                삭제?id=1
+                삭제?id=1
+                목록
+                """);
+
+        assertThat(out)
+                .contains("1번 명언은 존재하지 않습니다.");
+    }
+
 
 }
 
