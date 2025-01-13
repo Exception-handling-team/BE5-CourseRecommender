@@ -14,11 +14,13 @@ public class CommandTest {
     }
 
     @Test
-    @DisplayName("action name 얻어오기, 삭제?id=1 입력시 삭제 출력")
+    @DisplayName("action name 얻어오기")
     void t2() {
-        Command cmd = new Command("삭제?id=1");
+
+        Command cmd = new Command("목록?id=1");
         String actionName = cmd.getActionName();
 
-        assertThat(actionName).isEqualTo("삭제");
+
+        assertThat(actionName).isEqualTo("목록");
     }
 }
