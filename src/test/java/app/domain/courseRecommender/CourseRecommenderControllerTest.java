@@ -1,8 +1,12 @@
+package app.domain.courseRecommender;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import app.standard.TestBot;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FirstTest {
+public class CourseRecommenderControllerTest {
 
     @Test
     @DisplayName("앱 시작 시 '--- 수강신청 추천 시스템 --- 출력")
@@ -35,7 +39,7 @@ public class FirstTest {
 //    @DisplayName("명령을 여러번 입력할 수 있다.")
 //    void t3() {
 //
-//        String out = TestBot.run("""
+//        String out = app.standard.TestBot.run("""
 //                등록
 //                등록
 //                등록

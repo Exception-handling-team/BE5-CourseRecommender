@@ -1,3 +1,5 @@
+package app.domain.courseRecommender;
+
 public class CourseRecommender {
     private int id;
     private String courseName;

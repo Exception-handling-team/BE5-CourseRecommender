@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package app.domain.courseRecommender;
+
 import java.util.List;
 import java.util.Optional;
 

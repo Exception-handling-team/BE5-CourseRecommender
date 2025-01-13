@@ -1,5 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
+package app;
+
+import app.domain.courseRecommender.CourseRecommenderController;
+import app.domain.courseRecommender.SystemController;
+
 import java.util.Scanner;
 
 public class App {
