@@ -50,4 +50,21 @@ public class UtilTest {
         String readContent = Util.File.readAsString(file);
         assertThat(readContent).isEqualTo(writeContent);
     }
+
+    @Test
+    @DisplayName("파일 내용 수정")
+    void t5() {
+
+        String file = "test3.txt";
+
+        Util.File.createFile(file);
+        assertThat(Files.exists(Paths.get(file)))
+                .isTrue();
+
+        Util.File.delete(file);
+
+
+        assertThat(Files.exists(Paths.get(file)))
+                .isFalse();
+    }
 }
