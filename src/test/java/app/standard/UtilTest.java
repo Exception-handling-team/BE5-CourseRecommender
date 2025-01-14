@@ -27,4 +27,15 @@ public class UtilTest {
         assertThat(Files.exists(Paths.get(file)))
                 .isTrue();
     }
+
+    @Test
+    @DisplayName("파일 내용 읽기")
+    void t3() {
+
+        String testContent = "Hello, Java!";
+
+        String file = "test.txt";
+        String content = Util.File.readAsString(file);
+        assertThat(content).isEqualTo(testContent);
+    }
 }
