@@ -9,14 +9,17 @@ public class Command {
         String[] cmdBits = cmd.split("\\?");
         actionName = cmdBits[0];
 
-        if(cmdBits.length > 2) {
-            paramValue = "";
+        if(cmdBits.length < 2) {
             return;
         }
         String param = cmdBits[1];
 
-        String[] paramBits = param.split("=");
+        String[] paramBits = param.split("=", 2);
         paramKey = paramBits[0];
+        if (paramBits.length < 2) {
+            return;
+        }
+
         paramValue = paramBits[1];
     }
 
@@ -24,8 +27,8 @@ public class Command {
         return actionName;
     }
 
-    public int getParam() {
-        return Integer.parseInt(paramValue);
+    public String getParam() {
+        return paramValue;
     }
 
 }
