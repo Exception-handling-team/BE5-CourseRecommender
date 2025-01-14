@@ -94,4 +94,15 @@ public class UtilTest {
         assertThat(Files.exists(Paths.get(dirPath)))
                 .isFalse();
     }
+
+    @Test
+    @DisplayName("파일 생성 -> 없는 폴더에 생성 시도하면 폴더를 생성 한 후 파일 생성")
+    void t8() {
+
+        String dirPath = "test";
+
+        Util.File.delete(dirPath);
+        assertThat(Files.exists(Paths.get(dirPath)))
+                .isFalse();
+    }
 }
