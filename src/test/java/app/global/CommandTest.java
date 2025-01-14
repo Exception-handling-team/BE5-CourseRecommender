@@ -44,8 +44,7 @@ public class CommandTest {
     @DisplayName("입력값 - 삭제?id=1 일 때, 파라미터를 달라고 하면 1 출력")
     void t5() {
         Command cmd = new Command("삭제?id=2");
-        String strId = cmd.getParam("id");
-        int id = Integer.parseInt(strId);
+        int id = cmd.getParamAsInt("id");
         assertThat(id).isEqualTo(2);
     }
 
