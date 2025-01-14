@@ -52,7 +52,7 @@ public class UtilTest {
     }
 
     @Test
-    @DisplayName("파일 내용 수정")
+    @DisplayName("파일 내용 삭제")
     void t5() {
 
         String file = "test3.txt";
