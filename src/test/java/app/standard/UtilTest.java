@@ -32,9 +32,10 @@ public class UtilTest {
     @DisplayName("파일 내용 읽기")
     void t3() {
 
+        String file = "test.txt";
         String testContent = "Hello, Java!";
 
-        String file = "test.txt";
+        Util.File.write("test.txt", testContent);
         String content = Util.File.readAsString(file);
         assertThat(content).isEqualTo(testContent);
     }
@@ -43,7 +44,7 @@ public class UtilTest {
     @DisplayName("파일 내용 수정")
     void t4() {
 
-        String file = "test2.txt";
+        String file = "test.txt";
         String writeContent = "modify";
 
         Util.File.write(file, writeContent);
@@ -55,7 +56,7 @@ public class UtilTest {
     @DisplayName("파일 내용 삭제")
     void t5() {
 
-        String file = "test3.txt";
+        String file = "test.txt";
 
         Util.File.createFile(file);
         assertThat(Files.exists(Paths.get(file)))
