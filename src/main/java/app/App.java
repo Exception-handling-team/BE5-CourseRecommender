@@ -2,6 +2,7 @@ package app;
 
 import app.domain.courseRecommender.CourseRecommenderController;
 import app.domain.courseRecommender.SystemController;
+import app.global.Command;
 
 import java.util.Scanner;
 
@@ -22,8 +23,8 @@ public class App {
             System.out.println("명령 ) ");
             String cmd = sc.nextLine();
 
-            String[] cmdBits = cmd.split("\\?");
-            String actionName = cmdBits[0];
+            Command command = new Command(cmd);
+            String actionName = command.getActionName();
 
 
             switch(actionName) {
