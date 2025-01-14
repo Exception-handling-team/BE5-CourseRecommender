@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +57,7 @@ public class UtilTest {
     @DisplayName("파일 내용 삭제")
     void t5() {
 
-        String file = "test.txt";
+        String file = "test/test.txt";
 
         Util.File.createFile(file);
         assertThat(Files.exists(Paths.get(file)))
@@ -67,5 +68,19 @@ public class UtilTest {
 
         assertThat(Files.exists(Paths.get(file)))
                 .isFalse();
+    }
+
+    @Test
+    @DisplayName("폴더 생성")
+    void t6() {
+
+        String dirPath = "test";
+
+        Util.File.createDir(dirPath);
+        assertThat(Files.exists(Paths.get(dirPath)))
+                .isTrue();
+
+        assertThat(Files.isDirectory(Path.of(dirPath)))
+                .isTrue();
     }
 }
