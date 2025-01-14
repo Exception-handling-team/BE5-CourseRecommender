@@ -24,5 +24,17 @@ public class Util {
             }
 
         }
+
+        public static String readAsString(String file) {
+
+            Path filePath = Paths.get(file);
+
+            try {
+                return Files.readString(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
     }
 }
