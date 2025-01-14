@@ -244,6 +244,39 @@ public class CourseRecommenderControllerTest {
         assertThat(out)
                 .contains("1번 과목은 존재하지 않습니다.");
     }
+    @Test
+    @DisplayName("수정 - id이용해서 수정, 이 때 기존 과목 내용 출력")
+    void t12() {
+        String out = TestBot.run("""
+                등록
+                객체지향프로그래밍
+                T043585
+                3
+                2
+                없음
+                수 1 2 금 3
+                등록
+                선형대수
+                T031086
+                3
+                1
+                없음
+                화 5 6 목 7
+                수정?id=1
+                새 과목
+                새 코드
+                3
+                3
+                없음
+                화 5 6 목 8
+                목록
+                """);
+
+        assertThat(out)
+                .doesNotContain("1 / 객체지향프로그래밍 / T043585 / 3 / 2 / 없음 / 수 1 2 금 3")
+                .contains("1 / 새 과목 / 새 코드 / 3 / 3 / 없음 / 화 5 6 목 8");
+    }
+
 
 
 }
