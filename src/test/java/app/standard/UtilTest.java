@@ -38,4 +38,16 @@ public class UtilTest {
         String content = Util.File.readAsString(file);
         assertThat(content).isEqualTo(testContent);
     }
+
+    @Test
+    @DisplayName("파일 내용 수정")
+    void t4() {
+
+        String file = "test.txt";
+        String writeContent = "modify";
+
+        Util.File.write(file, writeContent);
+        String readContent = Util.File.readAsString(file);
+        assertThat(readContent).isEqualTo(writeContent);
+    }
 }
