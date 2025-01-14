@@ -43,7 +43,7 @@ public class UtilTest {
     @DisplayName("파일 내용 수정")
     void t4() {
 
-        String file = "test.txt";
+        String file = "test2.txt";
         String writeContent = "modify";
 
         Util.File.write(file, writeContent);
