@@ -101,8 +101,8 @@ public class CourseController {
 
         try {
             List<Course> recommendations = courseService.recommendCourses(currentGrade, completedCourseList, targetCredits);
-            // 추천 결과 파일에 저장
-            courseService.saveRecommendationsToFile(recommendations, "data/recommended.txt");
+            // 경로 인자를 제거하고, 서비스가 properties 설정한 경로를 사용
+            courseService.saveRecommendationsToFile(recommendations);
             return ResponseEntity.ok(recommendations);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
