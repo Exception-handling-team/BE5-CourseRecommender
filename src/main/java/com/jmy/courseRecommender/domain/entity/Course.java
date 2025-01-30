@@ -1,33 +1,25 @@
 package com.jmy.courseRecommender.domain.entity;
 
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Entity
+@Table(name = "courses")
 @Getter
 @Setter
-@Entity
-public class CourseRecommender {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column
     private String courseName;
-
-    @Column
     private String courseCode;
-
-    @Column
     private int courseCredit;
-
-    @Column
     private int courseGrade;
-
-    @Column
     private String preCourseName;
-
-    @Column
     private String courseTime;
 }
