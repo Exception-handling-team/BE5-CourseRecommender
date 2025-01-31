@@ -18,18 +18,14 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    /**
-     * 과목 등록
-     */
+    // 과목 등록
     @PostMapping
     public ResponseEntity<Course> registerCourse(@RequestBody Course course) {
         Course savedCourse = courseService.registerCourse(course);
         return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
 
-    /**
-     * 모든 과목 조회 + 페이징 (간단 구현)
-     */
+    // 모든 과목 조회(페이징)
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllCourses(
             @RequestParam(defaultValue = "0") int page,
@@ -58,9 +54,7 @@ public class CourseController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    /**
-     * 과목 삭제
-     */
+    // 과목 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
         boolean deleted = courseService.deleteCourse(id);
@@ -71,9 +65,7 @@ public class CourseController {
         }
     }
 
-    /**
-     * 과목 수정
-     */
+    // 과목 수정
     @PutMapping("/{id}")
     public ResponseEntity<Course> modifyCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
         Optional<Course> modified = courseService.modifyCourse(id, updatedCourse);
@@ -82,9 +74,7 @@ public class CourseController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * 수강신청 추천
-     */
+    // 수강신청 추천
     @PostMapping("/recommend")
     public ResponseEntity<?> recommendCourses(
             @RequestParam int currentGrade,

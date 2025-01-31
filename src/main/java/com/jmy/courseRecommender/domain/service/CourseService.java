@@ -28,23 +28,17 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    /**
-     * 과목 등록
-     */
+    // 과목 등록
     public Course registerCourse(Course course) {
         return courseRepository.save(course);
     }
 
-    /**
-     * 모든 과목 조회
-     */
+    // 모든 과목 조회
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    /**
-     * 과목 삭제
-     */
+    // 과목 삭제
     public boolean deleteCourse(Long id) {
         if (courseRepository.existsById(id)) {
             courseRepository.deleteById(id);
@@ -53,9 +47,7 @@ public class CourseService {
         return false;
     }
 
-    /**
-     * 과목 수정
-     */
+    // 과목 수정
     public Optional<Course> modifyCourse(Long id, Course updatedCourse) {
         return courseRepository.findById(id).map(c -> {
             c.setCourseName(updatedCourse.getCourseName());
@@ -69,7 +61,7 @@ public class CourseService {
     }
 
     /**
-     * 수강신청 추천 알고리즘
+     * 수강신청 추천
      * @param currentGrade     현재 학년
      * @param completedCourses 이수한 과목명 리스트
      * @param targetCredits    목표 학점
@@ -131,7 +123,7 @@ public class CourseService {
         List<Course> result = new ArrayList<>();
         int accumulatedCredits = 0;
 
-        // 시간 슬롯 추적
+        // 시간 추적
         Set<String> scheduledTimes = new HashSet<>();
 
         for (Course course : candidates) {
@@ -154,7 +146,7 @@ public class CourseService {
                 scheduledTimes.addAll(parseCourseTime(course.getCourseTime()));
                 log.info("추천 과목 추가: {}", course.getCourseName());
             } else {
-                log.info("시간 충돌로 제외된 과목: {}", course.getCourseName());
+                log.info("시간이 겹쳐 제외된 과목: {}", course.getCourseName());
             }
         }
 
@@ -165,14 +157,12 @@ public class CourseService {
         return result;
     }
 
-    /**
-     * 파일에 추천 과목 목록 저장
-     */
+    // 수강 추천 파일로 저장
     private void saveRecommendationsToFile(List<Course> recommendations, String filePath) {
         File file = new File(filePath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
-            parent.mkdirs(); // 폴더가 없으면 자동 생성
+            parent.mkdirs();
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -194,9 +184,7 @@ public class CourseService {
         }
     }
 
-    /**
-     * 선수 과목 충족 여부
-     */
+    // 선수 과목 수강 여부
     private boolean checkPrerequisite(Course course, List<String> completedCourses) {
         if ("없음".equalsIgnoreCase(course.getPreCourseName())) {
             return true;
@@ -210,9 +198,7 @@ public class CourseService {
         return true;
     }
 
-    /**
-     * 두 과목의 시간 충돌 확인
-     */
+    // 시간 충돌 확인
     private boolean timeConflict(Course c1, Course c2) {
         Set<String> times1 = parseCourseTime(c1.getCourseTime());
         Set<String> times2 = parseCourseTime(c2.getCourseTime());
@@ -224,9 +210,7 @@ public class CourseService {
         return false;
     }
 
-    /**
-     * 시간 문자열 파싱 (예: "화 5 6 목 7" -> ["화5", "화6", "목7"])
-     */
+    // 시간 문자열 파싱
     private Set<String> parseCourseTime(String courseTime) {
         Set<String> parsed = new HashSet<>();
         String[] tokens = courseTime.split(" ");
