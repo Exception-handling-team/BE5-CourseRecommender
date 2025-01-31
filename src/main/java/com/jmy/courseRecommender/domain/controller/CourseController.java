@@ -103,7 +103,6 @@ public class CourseController {
 
         try {
             List<Course> recommendations = courseService.recommendCourses(currentGrade, completedCourseList, targetCredits);
-            // 경로 인자를 제거하고, 서비스가 properties 설정한 경로를 사용
             courseService.saveRecommendationsToFile(recommendations);
             return ResponseEntity.ok(recommendations);
         } catch (RuntimeException e) {
