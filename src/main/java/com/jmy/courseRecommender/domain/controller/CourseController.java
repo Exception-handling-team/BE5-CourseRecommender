@@ -12,21 +12,33 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class CourseController {
 
     private final CourseService courseService;
 
     // 과목 등록
-    @PostMapping
+    @PostMapping("/course")
     public ResponseEntity<Course> registerCourse(@RequestBody Course course) {
         Course savedCourse = courseService.registerCourse(course);
         return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
 
+    // 다중 등록
+    @PostMapping("/courses")
+    public ResponseEntity<List<Course>> registerCourses(@RequestBody List<Course> courseList) {
+        List<Course> savedCourses = new ArrayList<>();
+        for (Course c : courseList) {
+            Course saved = courseService.registerCourse(c);
+            savedCourses.add(saved);
+        }
+        return new ResponseEntity<>(savedCourses, HttpStatus.CREATED);
+    }
+
+
     // 모든 과목 조회(페이징)
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> getAllCourses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
@@ -55,7 +67,7 @@ public class CourseController {
     }
 
     // 과목 삭제
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
         boolean deleted = courseService.deleteCourse(id);
         if (deleted) {
@@ -66,7 +78,7 @@ public class CourseController {
     }
 
     // 과목 수정
-    @PutMapping("/{id}")
+    @PutMapping("/modify/{id}")
     public ResponseEntity<Course> modifyCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
         Optional<Course> modified = courseService.modifyCourse(id, updatedCourse);
         return modified
