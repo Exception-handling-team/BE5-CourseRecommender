@@ -115,7 +115,7 @@ public class CourseController {
     @Operation(summary = "수강신청 추천", description = "현재 학년, 이수한 과목, 목표 학점을 기반으로 추천 과목을 반환한다. 추천 결과는 파일에도 저장된다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "추천 과목 목록 반환 성공"),
-            @ApiResponse(responseCode = "400", description = "추천 가능한 과목이 없는 경우")
+            @ApiResponse(responseCode = "400", description = "추천 가능한 과목이 없습니다.")
     })
     @PostMapping("/recommend")
     public ResponseEntity<?> recommendCourses(
