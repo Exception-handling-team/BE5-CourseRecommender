@@ -29,4 +29,14 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    // 사용자 정보 변경(학년, 목표 학점, 이수과목)
+    public User updateUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setGrade(updatedUser.getGrade());
+            user.setCredit(updatedUser.getCredit());
+            user.setPreCourses(updatedUser.getPreCourses());
+            return userRepository.save(user);
+        }).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+    }
 }

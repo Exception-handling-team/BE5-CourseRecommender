@@ -1,8 +1,10 @@
 package com.jmy.courseRecommender.domain.controller;
 
-
 import com.jmy.courseRecommender.domain.entity.Course;
 import com.jmy.courseRecommender.domain.service.CourseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,11 @@ public class CourseController {
     private final CourseService courseService;
 
     // 과목 등록
+    @Operation(summary = "과목 등록", description = "새로운 과목을 등록한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "과목 등록 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     @PostMapping("/course")
     public ResponseEntity<Course> registerCourse(@RequestBody Course course) {
         Course savedCourse = courseService.registerCourse(course);
@@ -26,6 +33,11 @@ public class CourseController {
     }
 
     // 다중 등록
+    @Operation(summary = "다중 과목 등록", description = "여러 개의 과목을 한 번에 등록한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "과목 등록 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     @PostMapping("/courses")
     public ResponseEntity<List<Course>> registerCourses(@RequestBody List<Course> courseList) {
         List<Course> savedCourses = new ArrayList<>();
@@ -36,8 +48,11 @@ public class CourseController {
         return new ResponseEntity<>(savedCourses, HttpStatus.CREATED);
     }
 
-
     // 모든 과목 조회(페이징)
+    @Operation(summary = "과목 목록 조회", description = "등록된 과목 목록을 페이징하여 조회한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "과목 목록 조회 성공")
+    })
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> getAllCourses(
             @RequestParam(defaultValue = "0") int page,
@@ -67,6 +82,11 @@ public class CourseController {
     }
 
     // 과목 삭제
+    @Operation(summary = "과목 삭제", description = "특정 ID의 과목을 삭제한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "과목 삭제 성공"),
+            @ApiResponse(responseCode = "404", description = "해당 ID의 과목을 찾을 수 없음")
+    })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable Long id) {
         boolean deleted = courseService.deleteCourse(id);
@@ -78,6 +98,11 @@ public class CourseController {
     }
 
     // 과목 수정
+    @Operation(summary = "과목 수정", description = "특정 ID의 과목 정보를 수정한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "과목 수정 성공"),
+            @ApiResponse(responseCode = "404", description = "해당 ID의 과목을 찾을 수 없음")
+    })
     @PutMapping("/modify/{id}")
     public ResponseEntity<Course> modifyCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
         Optional<Course> modified = courseService.modifyCourse(id, updatedCourse);
@@ -87,6 +112,11 @@ public class CourseController {
     }
 
     // 수강신청 추천
+    @Operation(summary = "수강신청 추천", description = "현재 학년, 이수한 과목, 목표 학점을 기반으로 추천 과목을 반환한다. 추천 결과는 파일에도 저장된다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "추천 과목 목록 반환 성공"),
+            @ApiResponse(responseCode = "400", description = "추천 가능한 과목이 없는 경우")
+    })
     @PostMapping("/recommend")
     public ResponseEntity<?> recommendCourses(
             @RequestParam int currentGrade,

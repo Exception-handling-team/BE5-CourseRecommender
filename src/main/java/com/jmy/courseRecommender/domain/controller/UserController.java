@@ -1,5 +1,6 @@
 package com.jmy.courseRecommender.domain.controller;
 
+import com.jmy.courseRecommender.domain.dto.LoginRequest;
 import com.jmy.courseRecommender.domain.entity.Course;
 import com.jmy.courseRecommender.domain.entity.User;
 import com.jmy.courseRecommender.domain.service.CourseService;
@@ -36,15 +37,28 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "사용자 로그인", description = "사용자 이름과 비밀번호로 로그인한다.")
+    @Operation(summary = "사용자 로그인", description = "아이디와 비밀번호를 사용하여 로그인한다.")
     @ApiResponse(responseCode = "200", description = "로그인 성공")
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User loginRequest) {
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         try {
             User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
+    @Operation(summary = "사용자 정보 변경", description = "사용자의 학년, 목표 학점, 이수한 과목 정보를 변경한다.")
+    @ApiResponse(responseCode = "200", description = "정보 변경 성공")
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        try {
+            User user = userService.updateUser(id, updatedUser);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
